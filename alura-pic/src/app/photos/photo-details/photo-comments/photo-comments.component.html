@@ -10,7 +10,7 @@
             <p class="break-word mb-2">{{ comment.text }}</p>
         </li>
     </ul>
-    <div class="mt-4">
+    <div class="mt-4" showIfLogged>
         <form [formGroup]="commentForm" (submit)="save()">
             <div class="input-group">
                 <textarea formControlName="comment" class="form-control"></textarea>
