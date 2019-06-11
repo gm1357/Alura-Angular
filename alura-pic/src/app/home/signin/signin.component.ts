@@ -30,20 +30,22 @@ export class SignInComponent implements OnInit {
     }
 
     login() {
-        const userName = this.loginForm.get('userName').value;
-        const password = this.loginForm.get('password').value;
+        if(this.loginForm.valid && !this.loginForm.pending) {
+            const userName = this.loginForm.get('userName').value;
+            const password = this.loginForm.get('password').value;
 
-        this.authService
-            .authenticate(userName, password)
-            .subscribe(
-                () => this.router.navigate(['user', userName]),
-                err => {
-                    console.log(err);
-                    this.loginForm.reset();
-                    this.plataformDetectorService.isPlataformBrowser() &&
-                        this.userNameInput.nativeElement.focus();
-                    alert('Invalid user name or password');
-                }
-            );
+            this.authService
+                .authenticate(userName, password)
+                .subscribe(
+                    () => this.router.navigate(['user', userName]),
+                    err => {
+                        console.log(err);
+                        this.loginForm.reset();
+                        this.plataformDetectorService.isPlataformBrowser() &&
+                            this.userNameInput.nativeElement.focus();
+                        alert('Invalid user name or password');
+                    }
+                );
+        }
     }
 }
